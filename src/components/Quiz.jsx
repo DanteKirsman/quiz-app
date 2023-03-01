@@ -11,9 +11,10 @@ function Quiz(props) {
         (question) => question.selectedAnswer !== ""
     );
 
+    const { difficulty } = props.options;
     useEffect(() => {
-        const api =
-            "https://opentdb.com/api.php?amount=5&type=multiple&encode=url3986";
+        // https://opentdb.com/api.php?amount=10&category=20&difficulty=medium&type=multiple&encode=url3986
+        let api = `https://opentdb.com/api.php?amount=10&category=20&difficulty=${difficulty}&type=multiple&encode=url3986`;
         fetch(api)
             .then((res) => res.json())
             .then((data) => {
@@ -36,7 +37,7 @@ function Quiz(props) {
                     })
                 );
             });
-    }, []);
+    }, [difficulty]);
 
     function changeSelectedAnswer(questionId, selectedAnswer) {
         setQuizData((prevQuestionsArray) =>
