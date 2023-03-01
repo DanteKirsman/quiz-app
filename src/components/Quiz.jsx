@@ -11,10 +11,14 @@ function Quiz(props) {
         (question) => question.selectedAnswer !== ""
     );
 
-    const { difficulty } = props.options;
+    const { difficulty, category, questionAmount } = props.options;
     useEffect(() => {
+        // Category starts at 9 and ends at 32 <--- Value
         // https://opentdb.com/api.php?amount=10&category=20&difficulty=medium&type=multiple&encode=url3986
-        let api = `https://opentdb.com/api.php?amount=10&category=20&difficulty=${difficulty}&type=multiple&encode=url3986`;
+        let api = `https://opentdb.com/api.php?amount=${questionAmount}&category=${category}&difficulty=${difficulty}&type=multiple&encode=url3986`;
+        if (category === "any") {
+            api = `https://opentdb.com/api.php?amount=${questionAmount}&difficulty=${difficulty}&type=multiple&encode=url3986`;
+        }
         fetch(api)
             .then((res) => res.json())
             .then((data) => {
@@ -37,7 +41,7 @@ function Quiz(props) {
                     })
                 );
             });
-    }, [difficulty]);
+    }, [difficulty, category]);
 
     function changeSelectedAnswer(questionId, selectedAnswer) {
         setQuizData((prevQuestionsArray) =>
@@ -91,7 +95,7 @@ function Quiz(props) {
         <div className="quiz--container">
             {questions}
             {allQuestionsAnswered && btnChecked && (
-                <p className="quiz--answers">You got {answersCorrect}/5</p>
+                <p className="quiz--answers">You got {answersCorrect}/{questionAmount}</p>
             )}
             <button
                 className="quiz--check"

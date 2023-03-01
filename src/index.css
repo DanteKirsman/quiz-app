@@ -97,3 +97,32 @@ html {
     margin-top: 1rem;
     font-size: 1.2rem;
 }
+
+.difficulty--container,
+.category--container,
+.questions--container {
+    margin-top: 1rem;
+    width: 28rem;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.difficulty--text,
+.category--text,
+.questions--text {
+    font-size: 1.2rem;
+}
+
+.difficulty--select,
+.category--select,
+.questions--select {
+    text-align: center;
+    padding: 8px;
+    border: none;
+    width: 14rem;
+    border-radius: 5px;
+    background-color: #4d5b9e;
+    color: white;
+    box-shadow: 8px 6px 15px #4c65e6;
+}

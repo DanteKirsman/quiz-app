@@ -6,9 +6,9 @@ I am doing this simple project to get better at React.js and also HTML, CSS and 
 
 ## Roadmap
 
--   [ ] Make the quiz customizable
-    -   [ ] Ability to choose question amount
+-   [x] Make the quiz customizable
+    -   [x] Ability to choose question amount
     -   [x] Ability to choose difficulty
-    -   [ ] Ability to choose category
+    -   [x] Ability to choose category
 -   [ ] Better design for the quiz
-    -   [ ] Show one question at a time on the page instead of all them
+    -   [ ] Show one question at a time on the page instead of all of them

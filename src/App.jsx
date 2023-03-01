@@ -9,7 +9,7 @@ function App() {
         category: "",
         questionAmount: "",
     });
-
+    console.log(options)
     function changeOptions(event) {
         setOptions((prevOptions) => ({
             ...prevOptions,
