@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import Question from "./Question";
 import { nanoid } from "nanoid";
 
-function Quiz() {
+function Quiz(props) {
     const [quizData, setQuizData] = useState([]);
+    const [answersCorrect, setAnswersCorrect] = useState(0);
+    const [btnChecked, setBtnChecked] = useState(false);
 
     const allQuestionsAnswered = quizData.every(
         (question) => question.selectedAnswer !== ""
@@ -48,13 +50,25 @@ function Quiz() {
 
     function checkAnswers() {
         if (allQuestionsAnswered) {
+            setBtnChecked((prevCheck) => !prevCheck);
             setQuizData((prevQuestionsArray) =>
-                prevQuestionsArray.map((question) => ({
-                    ...question,
-                    showAnswer: true,
-                }))
+                prevQuestionsArray.map((question) => {
+                    if (question.selectedAnswer === question.correct_answer) {
+                        setAnswersCorrect((prevCount) => prevCount + 1);
+                    }
+
+                    return {
+                        ...question,
+                        showAnswer: true,
+                    };
+                })
             );
         }
+    }
+
+    function resetGame() {
+        setBtnChecked((prevCheck) => !prevCheck);
+        props.toggleHome();
     }
 
     const questions = quizData.map((item) => {
@@ -71,13 +85,18 @@ function Quiz() {
             />
         );
     });
-    console.log(quizData);
 
     return (
         <div className="quiz--container">
             {questions}
-            <button className="quiz--check" onClick={checkAnswers}>
-                Check Answers
+            {allQuestionsAnswered && btnChecked && (
+                <p className="quiz--answers">You got {answersCorrect}/5</p>
+            )}
+            <button
+                className="quiz--check"
+                onClick={btnChecked ? resetGame : checkAnswers}
+            >
+                {btnChecked ? "Play Again" : "Check Answers"}
             </button>
         </div>
     );

@@ -9,7 +9,7 @@ function App() {
         setIsHome((prevIsHome) => !prevIsHome);
     }
 
-    return <div>{isHome ? <Quiz /> : <Home toggleHome={toggleHome} />}</div>;
+    return <div>{isHome ? <Quiz toggleHome={toggleHome} /> : <Home toggleHome={toggleHome} />}</div>;
 }
 
 export default App;
