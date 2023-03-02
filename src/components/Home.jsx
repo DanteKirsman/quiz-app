@@ -26,18 +26,7 @@ function Home(props) {
         "Entertainment: Japanese Anime & Manga",
         "Entertainment: Cartoon & Animations",
     ];
-
-    function questionAmountAdd() {
-        const questionAmountOptions = [];
-        for (let i = 0; i <= 50; i++) {
-            questionAmountOptions.push(
-                <option key={i} value={i}>
-                    {i}
-                </option>
-            );
-        }
-        return questionAmountOptions;
-    }
+    const questionAmountOption = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     return (
         <div className="home--container">
@@ -83,7 +72,13 @@ function Home(props) {
                     onChange={props.changeOptions}
                     name="questionAmount"
                 >
-                    {questionAmountAdd()}
+                    {questionAmountOption.map((value) => {
+                        return (
+                            <option value={value} key={value}>
+                                {value}
+                            </option>
+                        );
+                    })}
                 </select>
             </div>
             <button className="home--button" onClick={props.toggleHome}>

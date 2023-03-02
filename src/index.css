@@ -10,7 +10,8 @@
 
 html {
     font-family: "Montserrat", sans-serif;
-    background-color: #f5f7fb;
+    background-color: #0f2752;
+    overflow-y: hidden;
 }
 
 .home--container {
@@ -23,7 +24,7 @@ html {
 }
 
 .home--title {
-    color: #293264;
+    color: white;
     font-size: 4rem;
 }
 
@@ -42,14 +43,16 @@ html {
 }
 
 .quiz--container {
-    margin: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .question--container {
+    /* background-color: black; */
     text-align: center;
     margin-top: 1rem;
     width: auto;
@@ -61,34 +64,35 @@ html {
     font-weight: 300;
     font-size: 1.5rem;
     margin: auto;
+    color: white;
 }
 
 .question--buttons {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-content: center;
     justify-content: center;
     margin-top: 1rem;
 }
 
 .question--button {
-    background-color: transparent;
-    color: #293264;
-    border-radius: 1rem;
-    border: 1px solid #14205b;
-    width: fit-content;
-    height: 1rem;
+    border-radius: 500px;
+    border: 1px solid gray;
+    min-width: 160px;
+    height: 48px;
     font-size: 1rem;
+    font-weight: 700;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 2rem;
+    line-height: 0px;
     padding: 1rem;
+    margin: auto;
+    margin-top: 1.5rem;
+    color: white;
+    text-transform: uppercase;
 }
 
 .line {
-    border: 1px solid #d4d6e3;
+    border: 1px solid #4753ae;
     width: auto;
     margin-top: 2rem;
 }
@@ -96,6 +100,7 @@ html {
 .quiz--answers {
     margin-top: 1rem;
     font-size: 1.2rem;
+    color: white;
 }
 
 .difficulty--container,
@@ -112,6 +117,7 @@ html {
 .category--text,
 .questions--text {
     font-size: 1.2rem;
+    color: white;
 }
 
 .difficulty--select,
@@ -123,6 +129,7 @@ html {
     width: 14rem;
     border-radius: 5px;
     background-color: #4d5b9e;
-    color: white;
     box-shadow: 8px 6px 15px #4c65e6;
+    color: white;
+    text-transform: uppercase;
 }

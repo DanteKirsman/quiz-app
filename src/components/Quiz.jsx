@@ -5,16 +5,17 @@ import { nanoid } from "nanoid";
 function Quiz(props) {
     const [quizData, setQuizData] = useState([]);
     const [answersCorrect, setAnswersCorrect] = useState(0);
-    const [btnChecked, setBtnChecked] = useState(false);
+    const [isGameOver, setIsGameOver] = useState(false);
+    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [isGettingData, setIsGettingData] = useState(true);
 
     const allQuestionsAnswered = quizData.every(
         (question) => question.selectedAnswer !== ""
     );
 
     const { difficulty, category, questionAmount } = props.options;
+
     useEffect(() => {
-        // Category starts at 9 and ends at 32 <--- Value
-        // https://opentdb.com/api.php?amount=10&category=20&difficulty=medium&type=multiple&encode=url3986
         let api = `https://opentdb.com/api.php?amount=${questionAmount}&category=${category}&difficulty=${difficulty}&type=multiple&encode=url3986`;
         if (category === "any") {
             api = `https://opentdb.com/api.php?amount=${questionAmount}&difficulty=${difficulty}&type=multiple&encode=url3986`;
@@ -40,8 +41,10 @@ function Quiz(props) {
                         };
                     })
                 );
-            });
-    }, [difficulty, category]);
+                setIsGettingData(false);
+            })
+            .catch((error) => console.log(error));
+    }, [difficulty, category, questionAmount, isGettingData]);
 
     function changeSelectedAnswer(questionId, selectedAnswer) {
         setQuizData((prevQuestionsArray) =>
@@ -53,55 +56,57 @@ function Quiz(props) {
         );
     }
 
-    function checkAnswers() {
-        if (allQuestionsAnswered) {
-            setBtnChecked((prevCheck) => !prevCheck);
-            setQuizData((prevQuestionsArray) =>
-                prevQuestionsArray.map((question) => {
-                    if (question.selectedAnswer === question.correct_answer) {
-                        setAnswersCorrect((prevCount) => prevCount + 1);
-                    }
-
-                    return {
-                        ...question,
-                        showAnswer: true,
-                    };
-                })
-            );
+    function checkAnswer() {
+        if (
+            quizData[currentQuestion].selectedAnswer ===
+            quizData[currentQuestion].correct_answer
+        ) {
+            setAnswersCorrect((prevCorrect) => prevCorrect + 1);
+        }
+        if (
+            currentQuestion + 1 < quizData.length &&
+            quizData[currentQuestion].selectedAnswer !== ""
+        ) {
+            setCurrentQuestion((prevQuestion) => prevQuestion + 1);
+        } else if (quizData[currentQuestion].selectedAnswer !== "") {
+            setIsGameOver(true);
         }
     }
 
     function resetGame() {
-        setBtnChecked((prevCheck) => !prevCheck);
+        setIsGameOver(false);
         props.toggleHome();
     }
 
-    const questions = quizData.map((item) => {
-        return (
-            <Question
-                key={nanoid()}
-                id={item.id}
-                question={item.question}
-                allAnswers={item.allAnswers}
-                correctAnswer={item.correct_answer}
-                changeSelectedAnswer={changeSelectedAnswer}
-                selectedAnswer={item.selectedAnswer}
-                showAnswer={item.showAnswer}
-            />
-        );
-    });
-
     return (
         <div className="quiz--container">
-            {questions}
-            {allQuestionsAnswered && btnChecked && (
-                <p className="quiz--answers">You got {answersCorrect}/{questionAmount}</p>
+            {isGettingData ? (
+                <h1>Fetching data!</h1>
+            ) : (
+                <Question
+                    id={quizData[currentQuestion].id}
+                    allAnswers={quizData[currentQuestion].allAnswers}
+                    changeSelectedAnswer={changeSelectedAnswer}
+                    question={quizData[currentQuestion].question}
+                    correctAnswer={quizData[currentQuestion].correct_answer}
+                    selectedAnswer={quizData[currentQuestion].selectedAnswer}
+                    showAnswer={quizData[currentQuestion].showAnswer}
+                />
+            )}
+            {allQuestionsAnswered && isGameOver && (
+                <p className="quiz--answers">
+                    You got {answersCorrect}/{questionAmount}
+                </p>
             )}
             <button
                 className="quiz--check"
-                onClick={btnChecked ? resetGame : checkAnswers}
+                onClick={isGameOver ? resetGame : checkAnswer}
             >
-                {btnChecked ? "Play Again" : "Check Answers"}
+                {currentQuestion + 1 < quizData.length
+                    ? "Continue"
+                    : isGameOver
+                    ? "Play Again"
+                    : "Submit Quiz"}
             </button>
         </div>
     );

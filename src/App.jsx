@@ -5,11 +5,11 @@ import { useState } from "react";
 function App() {
     const [isHome, setIsHome] = useState(true);
     const [options, setOptions] = useState({
-        difficulty: "",
-        category: "",
-        questionAmount: "",
+        difficulty: "easy",
+        category: "any",
+        questionAmount: "1",
     });
-    console.log(options)
+    
     function changeOptions(event) {
         setOptions((prevOptions) => ({
             ...prevOptions,

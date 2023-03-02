@@ -9,12 +9,10 @@ function Question(props) {
                     backgroundColor:
                         props.showAnswer && answer === props.correctAnswer
                             ? "#94D7A2"
-                            : props.showAnswer &&
-                              answer !== props.correctAnswer &&
-                              props.selectedAnswer === answer
+                            : props.showAnswer && answer !== props.correctAnswer
                             ? "#F8BCBC"
                             : props.selectedAnswer === answer
-                            ? "#d1d8f9"
+                            ? "#1580E8"
                             : "transparent",
                 }}
                 className="question--button"
