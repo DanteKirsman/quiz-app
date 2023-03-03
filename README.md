@@ -8,6 +8,30 @@ The quiz app is an interactive application that allows users to take quizzes on 
 ![Question](/public/images/question.png "Question")
 ![Game Over Page](/public/images/gameOver.png "Game Over Page")
 
+## Getting Started
+
+### Prerequisites
+
+-   Node JS
+-   npm
+
+### Installation
+
+1. Clone the repo
+    ```
+    git clone https://github.com/DanteKirsman/quiz-app.git
+    ```
+2. cd into the directory and install the NPM packages
+    ```
+    cd quiz-app
+    npm install
+    ```
+3. Run the program
+    ```
+    npm run dev
+    ```
+4. Finally copy paste the link into your browser or press `o` to open the website
+
 ## Roadmap
 
 -   [x] Make the quiz customizable **(Completed March 1st 2023)**
@@ -20,3 +44,7 @@ The quiz app is an interactive application that allows users to take quizzes on 
     -   [x] Add a game over screen to show when the quiz is submitted
         -   [x] Show answers at the end with the score
 -   [x] Clean up the code to make it more readable
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
