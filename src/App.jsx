@@ -29,7 +29,7 @@ function App() {
                     toggleHome={toggleHome}
                 />
             ) : (
-                <Quiz options={options} toggleHome={toggleHome} />
+                <Quiz options={options} setOptions={setOptions} toggleHome={toggleHome} />
             )}
         </div>
     );

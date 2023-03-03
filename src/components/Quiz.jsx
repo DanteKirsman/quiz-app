@@ -3,7 +3,7 @@ import Question from "./Question";
 import GameOver from "./GameOver";
 import { nanoid } from "nanoid";
 
-function Quiz({ options, toggleHome }) {
+function Quiz({ options, setOptions, toggleHome }) {
     const [quizData, setQuizData] = useState([]);
     const [answersCorrect, setAnswersCorrect] = useState(0);
     const [isGameOver, setIsGameOver] = useState(false);
@@ -79,6 +79,11 @@ function Quiz({ options, toggleHome }) {
     function resetGame() {
         setIsGameOver(false);
         toggleHome();
+        setOptions({
+            difficulty: "easy",
+            category: "any",
+            questionAmount: "1",
+        });
     }
 
     return (
