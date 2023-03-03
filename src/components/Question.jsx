@@ -1,22 +1,24 @@
 import { nanoid } from "nanoid";
 
-function Question(props) {
-    const choices = props.allAnswers.map((answer) => {
+function Question({
+    id,
+    allAnswers,
+    changeSelectedAnswer,
+    question,
+    correctAnswer,
+    selectedAnswer,
+    showAnswer,
+}) {
+    const choices = allAnswers.map((answer) => {
         return (
             <button
                 key={nanoid()}
                 style={{
                     backgroundColor:
-                        props.showAnswer && answer === props.correctAnswer
-                            ? "#94D7A2"
-                            : props.showAnswer && answer !== props.correctAnswer
-                            ? "#F8BCBC"
-                            : props.selectedAnswer === answer
-                            ? "#1580E8"
-                            : "transparent",
+                        selectedAnswer === answer ? "#1580E8" : "transparent",
                 }}
                 className="question--button"
-                onClick={() => props.changeSelectedAnswer(props.id, answer)}
+                onClick={() => changeSelectedAnswer(id, answer)}
             >
                 {decodeURIComponent(answer)}
             </button>
@@ -24,9 +26,7 @@ function Question(props) {
     });
     return (
         <div className="question--container">
-            <h1 className="question--title">
-                {decodeURIComponent(props.question)}
-            </h1>
+            <h1 className="question--title">{decodeURIComponent(question)}</h1>
             <div className="question--buttons">{choices}</div>
             <div className="line"></div>
         </div>

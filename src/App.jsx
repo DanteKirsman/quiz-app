@@ -9,7 +9,7 @@ function App() {
         category: "any",
         questionAmount: "1",
     });
-    
+
     function changeOptions(event) {
         setOptions((prevOptions) => ({
             ...prevOptions,

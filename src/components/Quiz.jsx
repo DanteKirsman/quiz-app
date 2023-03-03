@@ -2,18 +2,14 @@ import { useEffect, useState } from "react";
 import Question from "./Question";
 import { nanoid } from "nanoid";
 
-function Quiz(props) {
+function Quiz({ options, toggleHome }) {
     const [quizData, setQuizData] = useState([]);
     const [answersCorrect, setAnswersCorrect] = useState(0);
     const [isGameOver, setIsGameOver] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [isGettingData, setIsGettingData] = useState(true);
 
-    const allQuestionsAnswered = quizData.every(
-        (question) => question.selectedAnswer !== ""
-    );
-
-    const { difficulty, category, questionAmount } = props.options;
+    const { difficulty, category, questionAmount } = options;
 
     useEffect(() => {
         let api = `https://opentdb.com/api.php?amount=${questionAmount}&category=${category}&difficulty=${difficulty}&type=multiple&encode=url3986`;
@@ -56,47 +52,48 @@ function Quiz(props) {
         );
     }
 
+    const currentQuizQuestion = quizData[currentQuestion];
+
     function checkAnswer() {
         if (
-            quizData[currentQuestion].selectedAnswer ===
-            quizData[currentQuestion].correct_answer
+            currentQuizQuestion.selectedAnswer ===
+            currentQuizQuestion.correct_answer
         ) {
             setAnswersCorrect((prevCorrect) => prevCorrect + 1);
         }
         if (
             currentQuestion + 1 < quizData.length &&
-            quizData[currentQuestion].selectedAnswer !== ""
+            currentQuizQuestion.selectedAnswer !== ""
         ) {
             setCurrentQuestion((prevQuestion) => prevQuestion + 1);
-        } else if (quizData[currentQuestion].selectedAnswer !== "") {
+        } else if (currentQuizQuestion.selectedAnswer !== "") {
             setIsGameOver(true);
         }
     }
 
     function resetGame() {
         setIsGameOver(false);
-        props.toggleHome();
+        toggleHome();
     }
 
     return (
         <div className="quiz--container">
             {isGettingData ? (
                 <h1>Fetching data!</h1>
+            ) : isGameOver ? (
+                <h1>
+                    You got {answersCorrect} / {questionAmount}
+                </h1>
             ) : (
                 <Question
-                    id={quizData[currentQuestion].id}
-                    allAnswers={quizData[currentQuestion].allAnswers}
+                    id={currentQuizQuestion.id}
+                    allAnswers={currentQuizQuestion.allAnswers}
                     changeSelectedAnswer={changeSelectedAnswer}
-                    question={quizData[currentQuestion].question}
-                    correctAnswer={quizData[currentQuestion].correct_answer}
-                    selectedAnswer={quizData[currentQuestion].selectedAnswer}
-                    showAnswer={quizData[currentQuestion].showAnswer}
+                    question={currentQuizQuestion.question}
+                    correctAnswer={currentQuizQuestion.correct_answer}
+                    selectedAnswer={currentQuizQuestion.selectedAnswer}
+                    showAnswer={currentQuizQuestion.showAnswer}
                 />
-            )}
-            {allQuestionsAnswered && isGameOver && (
-                <p className="quiz--answers">
-                    You got {answersCorrect}/{questionAmount}
-                </p>
             )}
             <button
                 className="quiz--check"

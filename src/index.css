@@ -6,6 +6,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    color: white;
 }
 
 html {
@@ -24,14 +25,12 @@ html {
 }
 
 .home--title {
-    color: white;
     font-size: 4rem;
 }
 
 .home--button,
 .quiz--check {
     background-color: #4d5b9e;
-    color: white;
     border-radius: 1rem;
     border-style: none;
     width: 12rem;
@@ -52,7 +51,6 @@ html {
 }
 
 .question--container {
-    /* background-color: black; */
     text-align: center;
     margin-top: 1rem;
     width: auto;
@@ -64,7 +62,6 @@ html {
     font-weight: 300;
     font-size: 1.5rem;
     margin: auto;
-    color: white;
 }
 
 .question--buttons {
@@ -87,7 +84,6 @@ html {
     padding: 1rem;
     margin: auto;
     margin-top: 1.5rem;
-    color: white;
     text-transform: uppercase;
 }
 
@@ -100,7 +96,6 @@ html {
 .quiz--answers {
     margin-top: 1rem;
     font-size: 1.2rem;
-    color: white;
 }
 
 .difficulty--container,
@@ -117,7 +112,6 @@ html {
 .category--text,
 .questions--text {
     font-size: 1.2rem;
-    color: white;
 }
 
 .difficulty--select,
@@ -130,6 +124,5 @@ html {
     border-radius: 5px;
     background-color: #4d5b9e;
     box-shadow: 8px 6px 15px #4c65e6;
-    color: white;
     text-transform: uppercase;
 }

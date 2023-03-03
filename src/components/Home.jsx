@@ -1,4 +1,4 @@
-function Home(props) {
+function Home({ options, changeOptions, toggleHome }) {
     const difficultyOptions = ["easy", "medium", "hard"];
     const categoryOptions = [
         "General Knowledge",
@@ -35,8 +35,8 @@ function Home(props) {
                 <p className="difficulty--text">Choose Difficulty:</p>
                 <select
                     className="difficulty--select"
-                    value={props.options.difficulty}
-                    onChange={props.changeOptions}
+                    value={options.difficulty}
+                    onChange={changeOptions}
                     name="difficulty"
                 >
                     {difficultyOptions.map((value) => (
@@ -50,8 +50,8 @@ function Home(props) {
                 <p className="category--text">Choose Category:</p>
                 <select
                     className="category--select"
-                    value={props.options.category}
-                    onChange={props.changeOptions}
+                    value={options.category}
+                    onChange={changeOptions}
                     name="category"
                 >
                     <option value="any">Any Category</option>
@@ -68,8 +68,8 @@ function Home(props) {
                 <p className="questions--text">Amount of Questions:</p>
                 <select
                     className="questions--select"
-                    value={props.options.questions}
-                    onChange={props.changeOptions}
+                    value={options.questions}
+                    onChange={changeOptions}
                     name="questionAmount"
                 >
                     {questionAmountOption.map((value) => {
@@ -81,7 +81,7 @@ function Home(props) {
                     })}
                 </select>
             </div>
-            <button className="home--button" onClick={props.toggleHome}>
+            <button className="home--button" onClick={toggleHome}>
                 Start Quiz
             </button>
         </div>
