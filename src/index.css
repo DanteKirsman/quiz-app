@@ -29,7 +29,8 @@ html {
 }
 
 .home--button,
-.quiz--check {
+.quiz--check,
+.gameOver--button {
     background-color: #4d5b9e;
     border-radius: 1rem;
     border-style: none;
@@ -48,6 +49,11 @@ html {
     align-items: center;
     height: 100vh;
     overflow: hidden;
+}
+
+.quiz--current {
+    font-size: 1rem;
+    margin-top: 1rem;
 }
 
 .question--container {
@@ -125,4 +131,16 @@ html {
     background-color: #4d5b9e;
     box-shadow: 8px 6px 15px #4c65e6;
     text-transform: uppercase;
+}
+
+.gameOver--correct--answer {
+    text-align: center;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+.gameOver--buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

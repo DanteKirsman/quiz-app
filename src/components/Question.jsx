@@ -8,6 +8,7 @@ function Question({
     correctAnswer,
     selectedAnswer,
     showAnswer,
+    isGameOver,
 }) {
     const choices = allAnswers.map((answer) => {
         return (
@@ -15,10 +16,16 @@ function Question({
                 key={nanoid()}
                 style={{
                     backgroundColor:
-                        selectedAnswer === answer ? "#1580E8" : "transparent",
+                        showAnswer && answer === correctAnswer
+                            ? "#1BCD70"
+                            : showAnswer && selectedAnswer === answer
+                            ? "#F70031"
+                            : selectedAnswer === answer
+                            ? "#1580E8"
+                            : "transparent",
                 }}
                 className="question--button"
-                onClick={() => changeSelectedAnswer(id, answer)}
+                onClick={isGameOver ? null : () => changeSelectedAnswer(id, answer)}
             >
                 {decodeURIComponent(answer)}
             </button>

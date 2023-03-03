@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import Question from "./Question";
+import GameOver from "./GameOver";
 import { nanoid } from "nanoid";
 
 function Quiz({ options, toggleHome }) {
     const [quizData, setQuizData] = useState([]);
     const [answersCorrect, setAnswersCorrect] = useState(0);
     const [isGameOver, setIsGameOver] = useState(false);
-    const [currentQuestion, setCurrentQuestion] = useState(0);
+    const [currentQuestionCount, setCurrentQuestionCount] = useState(0);
     const [isGettingData, setIsGettingData] = useState(true);
 
     const { difficulty, category, questionAmount } = options;
+    const allQuestionsAnswered = quizData.every((question) => question.selectedAnswer !== "");
 
     useEffect(() => {
         let api = `https://opentdb.com/api.php?amount=${questionAmount}&category=${category}&difficulty=${difficulty}&type=multiple&encode=url3986`;
@@ -23,11 +25,7 @@ function Quiz({ options, toggleHome }) {
                     data.results.map((question) => {
                         let allAnswers = [...question.incorrect_answers];
                         const randomNumber = Math.floor(Math.random() * 4);
-                        allAnswers.splice(
-                            randomNumber,
-                            0,
-                            question.correct_answer
-                        );
+                        allAnswers.splice(randomNumber, 0, question.correct_answer);
                         return {
                             ...question,
                             id: nanoid(),
@@ -52,22 +50,26 @@ function Quiz({ options, toggleHome }) {
         );
     }
 
-    const currentQuizQuestion = quizData[currentQuestion];
+    const currentQuizQuestion = quizData[currentQuestionCount];
 
     function checkAnswer() {
-        if (
-            currentQuizQuestion.selectedAnswer ===
-            currentQuizQuestion.correct_answer
-        ) {
+        if (currentQuizQuestion.selectedAnswer === currentQuizQuestion.correct_answer) {
             setAnswersCorrect((prevCorrect) => prevCorrect + 1);
         }
-        if (
-            currentQuestion + 1 < quizData.length &&
-            currentQuizQuestion.selectedAnswer !== ""
-        ) {
-            setCurrentQuestion((prevQuestion) => prevQuestion + 1);
-        } else if (currentQuizQuestion.selectedAnswer !== "") {
+        if (currentQuestionCount + 1 < quizData.length && currentQuizQuestion.selectedAnswer !== "") {
+            setCurrentQuestionCount((prevQuestion) => prevQuestion + 1);
+        } else if (allQuestionsAnswered) {
             setIsGameOver(true);
+            setCurrentQuestionCount(0);
+        }
+        if (currentQuizQuestion.selectedAnswer !== "") {
+            setQuizData((prevData) =>
+                prevData.map((question) =>
+                    currentQuizQuestion.id === question.id
+                        ? { ...question, showAnswer: true }
+                        : question
+                )
+            );
         }
     }
 
@@ -81,30 +83,42 @@ function Quiz({ options, toggleHome }) {
             {isGettingData ? (
                 <h1>Fetching data!</h1>
             ) : isGameOver ? (
-                <h1>
-                    You got {answersCorrect} / {questionAmount}
-                </h1>
-            ) : (
-                <Question
-                    id={currentQuizQuestion.id}
-                    allAnswers={currentQuizQuestion.allAnswers}
-                    changeSelectedAnswer={changeSelectedAnswer}
-                    question={currentQuizQuestion.question}
-                    correctAnswer={currentQuizQuestion.correct_answer}
-                    selectedAnswer={currentQuizQuestion.selectedAnswer}
-                    showAnswer={currentQuizQuestion.showAnswer}
+                <GameOver
+                    answersCorrect={answersCorrect}
+                    questionAmount={questionAmount}
+                    quizData={quizData}
+                    resetGame={resetGame}
+                    currentQuestionCount={currentQuestionCount}
+                    currentQuizQuestion={currentQuizQuestion}
+                    setCurrentQuestionCount={setCurrentQuestionCount}
+                    isGameOver={isGameOver}
                 />
+            ) : (
+                <div className="quiz--container">
+                    <Question
+                        id={currentQuizQuestion.id}
+                        allAnswers={currentQuizQuestion.allAnswers}
+                        changeSelectedAnswer={changeSelectedAnswer}
+                        question={currentQuizQuestion.question}
+                        correctAnswer={currentQuizQuestion.correct_answer}
+                        selectedAnswer={currentQuizQuestion.selectedAnswer}
+                        showAnswer={currentQuizQuestion.showAnswer}
+                    />
+                    <p className="quiz--current">
+                        Current Question: {currentQuestionCount + 1} / {quizData.length}
+                    </p>
+                    {!isGameOver ? (
+                        <button
+                            className="quiz--check"
+                            onClick={isGameOver ? resetGame : checkAnswer}
+                        >
+                            {currentQuestionCount + 1 < quizData.length ? "Continue" : "Submit Quiz"}
+                        </button>
+                    ) : (
+                        null
+                    )}
+                </div>
             )}
-            <button
-                className="quiz--check"
-                onClick={isGameOver ? resetGame : checkAnswer}
-            >
-                {currentQuestion + 1 < quizData.length
-                    ? "Continue"
-                    : isGameOver
-                    ? "Play Again"
-                    : "Submit Quiz"}
-            </button>
         </div>
     );
 }

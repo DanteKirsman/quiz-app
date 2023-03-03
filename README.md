@@ -1,8 +1,12 @@
 # Quiz App
 
-This is a simple quiz app that grabs questions from the [open trivia database](https://opentdb.com/api_config.php).
+Made this quiz app to practice React.js.
 
-I am doing this simple project to get better at React.js and also HTML, CSS and JavaScript.
+The quiz app is an interactive application that allows users to take quizzes on various topics from the [open trivia database](https://opentdb.com/api_config.php). Users can choose their difficulty, category and the amount of questions. The app has a user-friendly interface and provides results when the quiz is submitted. It is a fun way for users to test their knowledge and learn new things.
+
+![Home Page](/public/images/homepage.png "Home Page")
+![Question](/public/images/question.png "Question")
+![Game Over Page](/public/images/gameOver.png "Game Over Page")
 
 ## Roadmap
 
@@ -10,10 +14,9 @@ I am doing this simple project to get better at React.js and also HTML, CSS and 
     -   [x] Ability to choose question amount
     -   [x] Ability to choose difficulty
     -   [x] Ability to choose category
--   [ ] Better design for the quiz
+-   [x] Better design for the quiz **(Completed March 2nd 2023)**
     -   [x] Show one question at a time on the page instead of all of them
     -   [x] Give the quiz a better style
     -   [x] Add a game over screen to show when the quiz is submitted
-        -   [ ] Show answers at the end with the score
+        -   [x] Show answers at the end with the score
 -   [x] Clean up the code to make it more readable
--   [ ] Add comments
