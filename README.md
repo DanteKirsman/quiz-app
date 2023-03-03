@@ -20,10 +20,10 @@ The quiz app is an interactive application that allows users to take quizzes on 
 1. Clone the repo
     ```
     git clone https://github.com/DanteKirsman/quiz-app.git
-    ```
-2. cd into the directory and install the NPM packages
-    ```
     cd quiz-app
+    ```
+2. install dependencies
+    ```
     npm install
     ```
 3. Run the program

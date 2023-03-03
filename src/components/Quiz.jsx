@@ -24,8 +24,8 @@ function Quiz({ options, toggleHome }) {
                 setQuizData(
                     data.results.map((question) => {
                         let allAnswers = [...question.incorrect_answers];
-                        const randomNumber = Math.floor(Math.random() * 4);
-                        allAnswers.splice(randomNumber, 0, question.correct_answer);
+                        const randomIndex = Math.floor(Math.random() * 4);
+                        allAnswers.splice(randomIndex, 0, question.correct_answer);
                         return {
                             ...question,
                             id: nanoid(),
@@ -56,7 +56,10 @@ function Quiz({ options, toggleHome }) {
         if (currentQuizQuestion.selectedAnswer === currentQuizQuestion.correct_answer) {
             setAnswersCorrect((prevCorrect) => prevCorrect + 1);
         }
-        if (currentQuestionCount + 1 < quizData.length && currentQuizQuestion.selectedAnswer !== "") {
+        if (
+            currentQuestionCount + 1 < quizData.length &&
+            currentQuizQuestion.selectedAnswer !== ""
+        ) {
             setCurrentQuestionCount((prevQuestion) => prevQuestion + 1);
         } else if (allQuestionsAnswered) {
             setIsGameOver(true);
@@ -105,18 +108,18 @@ function Quiz({ options, toggleHome }) {
                         showAnswer={currentQuizQuestion.showAnswer}
                     />
                     <p className="quiz--current">
-                        Current Question: {currentQuestionCount + 1} / {quizData.length}
+                        Question: {currentQuestionCount + 1} / {quizData.length}
                     </p>
                     {!isGameOver ? (
                         <button
                             className="quiz--check"
                             onClick={isGameOver ? resetGame : checkAnswer}
                         >
-                            {currentQuestionCount + 1 < quizData.length ? "Continue" : "Submit Quiz"}
+                            {currentQuestionCount + 1 < quizData.length
+                                ? "Continue"
+                                : "Submit Quiz"}
                         </button>
-                    ) : (
-                        null
-                    )}
+                    ) : null}
                 </div>
             )}
         </div>

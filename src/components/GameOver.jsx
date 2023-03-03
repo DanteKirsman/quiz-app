@@ -21,6 +21,9 @@ function GameOver({
                 showAnswer={currentQuizQuestion.showAnswer}
                 isGameOver={isGameOver}
             />
+            <p className="quiz--current">
+                Question: {currentQuestionCount + 1} / {quizData.length}
+            </p>
             <h1 className="gameOver--correct--answer">
                 You got {answersCorrect} / {questionAmount}
             </h1>

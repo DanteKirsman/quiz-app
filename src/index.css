@@ -1,18 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap");
 
+:root {
+    --website-bg: #0f2752;
+    --text-colour: white;
+    --button-bg-colour: #4d5b9e;
+    --box-shadow-colour: #4c65e6;
+    --line-colour: #4753ae;
+}
+
 *,
 *::before,
 *::after {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    color: white;
+    color: var(--text-colour);
 }
 
 html {
     font-family: "Montserrat", sans-serif;
-    background-color: #0f2752;
-    overflow-y: hidden;
+    background-color: var(--website-bg);
 }
 
 .home--container {
@@ -26,20 +33,21 @@ html {
 
 .home--title {
     font-size: 4rem;
+    margin-bottom: 2rem;
 }
 
 .home--button,
 .quiz--check,
 .gameOver--button {
-    background-color: #4d5b9e;
+    background-color: var(--button-bg-colour);
     border-radius: 1rem;
     border-style: none;
-    width: 12rem;
+    width: 10rem;
     height: 3.5rem;
     font-size: 1rem;
     margin-top: 2rem;
     cursor: pointer;
-    box-shadow: 8px 6px 15px #4c65e6;
+    box-shadow: 8px 6px 15px var(--box-shadow-colour);
 }
 
 .quiz--container {
@@ -54,6 +62,7 @@ html {
 .quiz--current {
     font-size: 1rem;
     margin-top: 1rem;
+    text-align: center;
 }
 
 .question--container {
@@ -94,7 +103,7 @@ html {
 }
 
 .line {
-    border: 1px solid #4753ae;
+    border: 1px solid var(--line-colour);
     width: auto;
     margin-top: 2rem;
 }
@@ -128,8 +137,8 @@ html {
     border: none;
     width: 14rem;
     border-radius: 5px;
-    background-color: #4d5b9e;
-    box-shadow: 8px 6px 15px #4c65e6;
+    background-color: var(--button-bg-colour);
+    box-shadow: 8px 6px 15px var(--box-shadow-colour);
     text-transform: uppercase;
 }
 
@@ -143,4 +152,22 @@ html {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+    html {
+        font-size: 0.7rem;
+    }
+    .quiz--check,
+    .gameOver--button {
+        width: 8rem;
+    }
+    .difficulty--select,
+    .category--select,
+    .questions--select {
+        font-size: 1rem;
+    }
+    .quiz--container {
+        padding: 2rem;
+    }
 }

@@ -11,17 +11,20 @@ function Question({
     isGameOver,
 }) {
     const choices = allAnswers.map((answer) => {
+        const wrongAnswerColour = "#F70031";
+        const correctAnswerColour = "#1BCD70";
+        const selectedAnswerColour = "#1580E8";
         return (
             <button
                 key={nanoid()}
                 style={{
                     backgroundColor:
                         showAnswer && answer === correctAnswer
-                            ? "#1BCD70"
+                            ? correctAnswerColour
                             : showAnswer && selectedAnswer === answer
-                            ? "#F70031"
+                            ? wrongAnswerColour
                             : selectedAnswer === answer
-                            ? "#1580E8"
+                            ? selectedAnswerColour
                             : "transparent",
                 }}
                 className="question--button"
